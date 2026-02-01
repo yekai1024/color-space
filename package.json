@@ -1,0 +1,85 @@
+{
+  "name": "color-space",
+  "displayName": "Color Space",
+  "description": "Automatically change VS Code/Trae window colors based on the workspace.",
+  "version": "0.0.1",
+  "publisher": "user",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kmindlab/color-space.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "colorspace.enable",
+        "title": "Color Space: Enable"
+      },
+      {
+        "command": "colorspace.disable",
+        "title": "Color Space: Disable"
+      },
+      {
+        "command": "colorspace.pickColor",
+        "title": "Color Space: Pick Color"
+      },
+      {
+        "command": "colorspace.randomize",
+        "title": "Color Space: Randomize"
+      },
+      {
+        "command": "colorspace.clear",
+        "title": "Color Space: Clear"
+      }
+    ],
+    "configuration": {
+      "title": "Color Space",
+      "properties": {
+        "colorspace.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable auto color switching."
+        },
+        "colorspace.ignoreList": {
+          "type": "array",
+          "default": [],
+          "description": "List of workspace names to ignore."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "test:trae": "node ./out/test/runTestTrae.js",
+    "coverage": "nyc --reporter=lcov --reporter=text npm test"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.56.0",
+    "glob": "^7.2.3",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "typescript": "^5.3.3"
+  }
+}
