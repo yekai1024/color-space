@@ -26,27 +26,60 @@ export class ColorManager {
         await this.applyColor(color);
     }
 
-    public async applyColor(color: string) {
+    public async applyColor(baseColor: string) {
         const config = vscode.workspace.getConfiguration('workbench');
         const colorCustomizations = { ...(config.get<any>('colorCustomizations') || {}) };
         
-        // Calculate contrasting foreground color (black or white)
-        const foreground = this.getContrastColor(color);
+        const hsl = this.hexToHsl(baseColor);
+
+        // Title Bar: Lighter
+        const titleL = Math.min(hsl.l + 10, 98);
+        const titleColor = this.hslToHex(hsl.h, hsl.s, titleL);
+        const titleFg = this.getContrastColor(titleColor);
+
+        // Status Bar & Activity Bar: Darker
+        const statusL = Math.max(hsl.l - 10, 10);
+        const statusColor = this.hslToHex(hsl.h, hsl.s, statusL);
+        const statusFg = this.getContrastColor(statusColor);
 
         const newColors = {
             ...colorCustomizations,
-            "titleBar.activeBackground": color,
-            "titleBar.activeForeground": foreground,
-            "activityBar.background": color,
-            "activityBar.foreground": foreground,
-            "statusBar.background": color,
-            "statusBar.foreground": foreground,
-            // Also color inactive to maintain theme, or leave it? 
-            // Usually titleBar.inactiveBackground is handled by theme, but consistent branding might want a washed out version.
-            // Let's stick to active elements for now.
+            "titleBar.activeBackground": titleColor,
+            "titleBar.activeForeground": titleFg,
+            "activityBar.background": statusColor,
+            "activityBar.foreground": statusFg,
+            "statusBar.background": statusColor,
+            "statusBar.foreground": statusFg,
         };
 
         await config.update('colorCustomizations', newColors, vscode.ConfigurationTarget.Workspace);
+    }
+
+    private hexToHsl(hex: string): { h: number, s: number, l: number } {
+        hex = hex.replace(/^#/, '');
+        if (hex.length === 3) {
+            hex = hex.split('').map(c => c + c).join('');
+        }
+        
+        const r = parseInt(hex.substring(0, 2), 16) / 255;
+        const g = parseInt(hex.substring(2, 4), 16) / 255;
+        const b = parseInt(hex.substring(4, 6), 16) / 255;
+        
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h = 0, s = 0, l = (max + min) / 2;
+        
+        if (max !== min) {
+            const d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
+            }
+            h /= 6;
+        }
+        
+        return { h: h * 360, s: s * 100, l: l * 100 };
     }
 
     public async clearColor() {
