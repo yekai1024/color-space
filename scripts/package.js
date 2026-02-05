@@ -41,7 +41,36 @@ try {
     // List the new file
     const newFiles = fs.readdirSync(rootDir).filter(f => f.endsWith('.vsix'));
     if (newFiles.length > 0) {
-        console.log(`\nNew package: \x1b[33m${newFiles[0]}\x1b[0m`);
+        const vsixFile = newFiles[0];
+        console.log(`\nNew package: \x1b[33m${vsixFile}\x1b[0m`);
+
+        // 3. Auto install
+        console.log('\n📦 Attempting to install package...');
+        
+        const installCommands = [
+            { name: 'VS Code', cmd: 'code' },
+            { name: 'Trae', cmd: 'trae' }
+        ];
+
+        let installedAny = false;
+
+        for (const { name, cmd } of installCommands) {
+            try {
+                console.log(`\n   Installing for ${name}...`);
+                execSync(`${cmd} --install-extension "${vsixFile}" --force`, { stdio: 'inherit', cwd: rootDir });
+                console.log(`\x1b[32m%s\x1b[0m`, `   ✅ Installed for ${name} successfully!`);
+                installedAny = true;
+            } catch (e) {
+                console.log(`\x1b[33m%s\x1b[0m`, `   ⚠️  Could not install for ${name} (command "${cmd}" not found or failed).`);
+            }
+        }
+
+        if (installedAny) {
+            console.log('\n\x1b[32m%s\x1b[0m', '✅ Extension installed. Please reload window to apply changes.');
+        } else {
+             console.log('\n\x1b[33m%s\x1b[0m', '⚠️  Automatic installation failed for both VS Code and Trae.');
+             console.log(`You can manually install it by running: code --install-extension ${vsixFile} OR trae --install-extension ${vsixFile}`);
+        }
     }
 
 } catch (error) {

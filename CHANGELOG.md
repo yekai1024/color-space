@@ -2,9 +2,39 @@
 
 All notable changes to the "color-space" extension will be documented in this file.
 
+## [1.0.0] - 2026-02-05
+
+- Official Release 1.0.0
+
+## [0.5.0] - 2026-02-05
+
+- Updated extension icon: Increased subject size and saturation for better visibility
+
+## [0.4.2] - 2026-02-05
+
+- Optimized extension icon: Converted from SVG to high-resolution PNG
+## [0.4.1] - 2026-02-04
+
+- Auto-Color Theme Adaptation: Smartly selects presets based on VS Code theme type (Dark/Light)
+- Startup Configuration Preservation: Skips auto-coloring if key color settings already exist to prevent overwriting user configs
+
+## [0.4.0] - 2026-02-04
+
+- Added new extension icon
+- Improved Clear Color logic: auto-coloring is paused after manual clear until a new color is selected
+- Refactored Preview Page: removed hardcoded themes, now using unified presets from ColorManager
+- Enhanced package script: supports auto-installation for both VS Code and Trae
+
+## [0.3.2] - 2026-02-04
+
+- Automated packaging and installation updates
+
+## [0.3.1] - 2026-02-04
+
+- Version bump and maintenance
+
 ## [0.3.0] - 2026-02-02
 
-- Upgrade to dynamic preview service (Port 4000)
 - Remove static preview generation
 - Fix preview compatibility in browser
 
@@ -15,10 +45,9 @@ All notable changes to the "color-space" extension will be documented in this fi
 ## [0.1.0] - 2026-02-02
 
 - Renamed extension to "Color Space"
-- Replaced status bar text with icon `$(symbol-color)`
 - Added Trae IDE automated testing support
 
-## [0.0.1] - 2024-02-01
+## [0.0.1] - 2026-02-01
 
 - Initial release
 - Added auto-coloring based on workspace name

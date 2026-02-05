@@ -43,7 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
         );
 
-        currentPanel.webview.html = getPreviewHtml();
+        currentPanel.webview.html = getPreviewHtml(colorManager.presets);
 
         // Handle messages from the webview
         currentPanel.webview.onDidReceiveMessage(
@@ -68,43 +68,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     const pickColorCmd = vscode.commands.registerCommand('colorspace.pickColor', async () => {
-        const items: vscode.QuickPickItem[] = [
-            { label: 'Morandi Light (Soft & Muted)', kind: vscode.QuickPickItemKind.Separator },
-            { label: 'Haze Blue (雾霾蓝)', description: '#93A2BA' },
-            { label: 'Sage Green (鼠尾草绿)', description: '#BCCFBF' },
-            { label: 'Bean Paste Pink (豆沙粉)', description: '#E4C6C6' },
-            { label: 'Oatmeal (燕麦色)', description: '#DED7C8' },
-            { label: 'Lilac (藕荷紫)', description: '#CDBFD4' },
-            { label: 'Glacier Gray (冰川灰)', description: '#C4D3D9' },
-            { label: 'Almond Yellow (杏仁黄)', description: '#F0E6CC' },
-            { label: 'Linen (亚麻色)', description: '#E6DCCD' },
-            { label: 'Dusty Orange (脏橘色)', description: '#E8C3B0' },
-            { label: 'Milk Tea (奶茶色)', description: '#D6C8B5' },
-            
-            { label: 'Morandi Dark (Deep & Elegant)', kind: vscode.QuickPickItemKind.Separator },
-            { label: 'Iron Gray (铁灰色)', description: '#5D6169' },
-            { label: 'Prussian Blue Gray (普鲁士蓝灰)', description: '#4A5D70' },
-            { label: 'Olive Gray (橄榄灰绿)', description: '#5E665B' },
-            { label: 'Burgundy Gray (勃艮第灰红)', description: '#705353' },
-            { label: 'Smoky Purple (烟熏紫)', description: '#61596B' },
-            { label: 'Deep Sea Blue (深海蓝灰)', description: '#455666' },
-            { label: 'Caramel Brown (焦糖褐灰)', description: '#806A5E' },
-            { label: 'Forest Gray (森林灰绿)', description: '#48594E' },
-            { label: 'Slate Rock (岩石灰)', description: '#585F63' },
-            { label: 'Eggplant Gray (茄皮紫灰)', description: '#5E5363' },
-
-            { label: 'Classic Premium (Chinese & Dunhuang)', kind: vscode.QuickPickItemKind.Separator },
-            { label: 'Sky Cyan (天青)', description: '#B5CECE' },
-            { label: 'Moon White (月白)', description: '#D6ECF0' },
-            { label: 'Crab Shell Green (蟹壳青)', description: '#BBCDC5' },
-            { label: 'Lovesick Gray (相思灰)', description: '#61649F' },
-            { label: 'Agarwood (沉香)', description: '#867069' },
-            { label: 'Muted Cinnabar (朱砂红-灰)', description: '#9A4C39' },
-            { label: 'Mineral Green (石绿)', description: '#4A8F78' },
-            { label: 'Lapis Blue (青金石)', description: '#5D6185' },
-            { label: 'Desert Gold (大漠金)', description: '#C9B780' },
-            { label: 'Tea White (茶白)', description: '#F3F4E6' },
-        ];
+        const items = colorManager.presets;
         
         // Save current configuration to restore if cancelled
         const config = vscode.workspace.getConfiguration('workbench');
@@ -168,15 +132,15 @@ export function activate(context: vscode.ExtensionContext) {
     myStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
     myStatusBarItem.command = 'colorspace.showMenu'; // Internal helper command
     myStatusBarItem.text = `$(symbol-color)`;
-    myStatusBarItem.tooltip = "Manage Color Space";
+    myStatusBarItem.tooltip = "Color Workpace";
     myStatusBarItem.show();
 
     // Helper command for status bar click
     const showMenuCmd = vscode.commands.registerCommand('colorspace.showMenu', async () => {
         const items = [
-            { label: '$(preview) Show Color Preview', command: 'colorspace.showPreview' },
-            { label: '$(refresh) Randomize Color', command: 'colorspace.randomize' },
-            { label: '$(color-mode) Pick Preset Color', command: 'colorspace.pickColor' },
+            { label: '$(preview) Color Theme', command: 'colorspace.showPreview' },
+            { label: '$(color-mode) Pick Color', command: 'colorspace.pickColor' },
+            { label: '$(refresh) Suprise Me', command: 'colorspace.randomize' },
             { label: '$(trash) Clear Color', command: 'colorspace.clear' },
             { label: '$(gear) Configure', command: 'workbench.action.openSettings', arguments: ['colorspace'] }
         ];

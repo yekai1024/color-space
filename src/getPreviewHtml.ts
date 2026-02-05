@@ -1,4 +1,25 @@
-export function getPreviewHtml(isLocal: boolean = false): string {
+import * as vscode from 'vscode';
+
+export function getPreviewHtml(presets: vscode.QuickPickItem[], isLocal: boolean = false): string {
+    // Transform presets to groups structure
+    const groups: { title: string; colors: { name: string; hex: string }[] }[] = [];
+    let currentGroup: { title: string; colors: { name: string; hex: string }[] } | null = null;
+
+    for (const item of presets) {
+        if (item.kind === vscode.QuickPickItemKind.Separator) {
+            currentGroup = {
+                title: item.label,
+                colors: []
+            };
+            groups.push(currentGroup);
+        } else if (currentGroup && item.description) {
+            currentGroup.colors.push({
+                name: item.label,
+                hex: item.description
+            });
+        }
+    }
+
     const vsCodeApiScript = isLocal 
         ? `
         window.vscode = {
@@ -355,53 +376,7 @@ export function getPreviewHtml(isLocal: boolean = false): string {
             };
         }
 
-        const groups = [
-            {
-                title: "Morandi Light (Soft & Muted)",
-                colors: [
-                    { name: 'Haze Blue (雾霾蓝)', hex: '#93A2BA' },
-                    { name: 'Sage Green (鼠尾草绿)', hex: '#BCCFBF' },
-                    { name: 'Bean Paste Pink (豆沙粉)', hex: '#E4C6C6' },
-                    { name: 'Oatmeal (燕麦色)', hex: '#DED7C8' },
-                    { name: 'Lilac (藕荷紫)', hex: '#CDBFD4' },
-                    { name: 'Glacier Gray (冰川灰)', hex: '#C4D3D9' },
-                    { name: 'Almond Yellow (杏仁黄)', hex: '#F0E6CC' },
-                    { name: 'Linen (亚麻色)', hex: '#E6DCCD' },
-                    { name: 'Dusty Orange (脏橘色)', hex: '#E8C3B0' },
-                    { name: 'Milk Tea (奶茶色)', hex: '#D6C8B5' },
-                ]
-            },
-            {
-                title: "Morandi Dark (Deep & Elegant)",
-                colors: [
-                    { name: 'Iron Gray (铁灰色)', hex: '#5D6169' },
-                    { name: 'Prussian Blue Gray (普鲁士蓝灰)', hex: '#4A5D70' },
-                    { name: 'Olive Gray (橄榄灰绿)', hex: '#5E665B' },
-                    { name: 'Burgundy Gray (勃艮第灰红)', hex: '#705353' },
-                    { name: 'Smoky Purple (烟熏紫)', hex: '#61596B' },
-                    { name: 'Deep Sea Blue (深海蓝灰)', hex: '#455666' },
-                    { name: 'Caramel Brown (焦糖褐灰)', hex: '#806A5E' },
-                    { name: 'Forest Gray (森林灰绿)', hex: '#48594E' },
-                    { name: 'Slate Rock (岩石灰)', hex: '#585F63' },
-                    { name: 'Eggplant Gray (茄皮紫灰)', hex: '#5E5363' },
-                ]
-            },
-            {
-                title: "Classic Premium (Chinese & Dunhuang)",
-                colors: [
-                    { name: 'Sky Cyan (天青)', hex: '#B5CECE' },
-                    { name: 'Moon White (月白)', hex: '#D6ECF0' },
-                    { name: 'Crab Shell Green (蟹壳青)', hex: '#BBCDC5' },
-                    { name: 'Lovesick Gray (相思灰)', hex: '#61649F' },
-                    { name: 'Agarwood (沉香)', hex: '#867069' },
-                    { name: 'Muted Cinnabar (朱砂红-灰)', hex: '#9A4C39' },
-                    { name: 'Mineral Green (石绿)', hex: '#4A8F78' },
-                    { name: 'Lapis Blue (青金石)', hex: '#5D6185' },
-                    { name: 'Desert Gold (大漠金)', hex: '#C9B780' },
-                    { name: 'Tea White (茶白)', hex: '#F3F4E6' },
-                ]
-            }
-        ];
+        const groups = ${JSON.stringify(groups)};
 
         const app = document.getElementById('app');
         groups.forEach(group => {

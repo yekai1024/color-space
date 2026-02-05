@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="crystalGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4ECDC4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#45B7D1;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="crystalGrad2" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#A8E6CF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#88D8B0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="crystalGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFE66D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B6B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="crystalGrad4" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" style="stop-color:#F8B500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B6B;stop-opacity:1" />
+    </linearGradient>
+    <filter id="crystalShadow">
+      <feDropShadow dx="3" dy="3" stdDeviation="4" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="128" height="128" rx="18" fill="#1a1a2e"/>
+
+  <!-- 水晶簇 - 体现色彩空间 -->
+  <g transform="translate(64, 70)" filter="url(#crystalShadow)">
+    <!-- 主水晶 - 中心 -->
+    <polygon points="0,-45 12,-15 0,15 -12,-15" fill="url(#crystalGrad1)"/>
+
+    <!-- 左水晶 -->
+    <polygon points="-15,-15 -25,0 -20,20 -5,5" fill="url(#crystalGrad2)"/>
+
+    <!-- 右水晶 -->
+    <polygon points="15,-15 5,5 20,20 25,0" fill="url(#crystalGrad3)"/>
+
+    <!-- 小水晶装饰 -->
+    <polygon points="-8,20 0,35 8,20 0,10" fill="url(#crystalGrad4)"/>
+  </g>
+
+  <!-- 内部线条增强水晶质感 -->
+  <g transform="translate(64, 70)" opacity="0.4">
+    <line x1="0" y1="-45" x2="0" y2="15" stroke="#ffffff" stroke-width="1"/>
+    <line x1="-15" y1="-15" x2="-5" y2="5" stroke="#ffffff" stroke-width="1"/>
+    <line x1="15" y1="-15" x2="5" y2="5" stroke="#ffffff" stroke-width="1"/>
+  </g>
+
+  <!-- 星光效果 -->
+  <circle cx="64" cy="25" r="2" fill="#FFD93D"/>
+  <circle cx="25" cy="64" r="1.5" fill="#ffffff"/>
+  <circle cx="103" cy="64" r="1.5" fill="#ffffff"/>
+  <circle cx="35" cy="103" r="2" fill="#4ECDC4"/>
+  <circle cx="93" cy="103" r="2" fill="#FF6B6B"/>
+</svg>
