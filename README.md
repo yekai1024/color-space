@@ -2,15 +2,15 @@
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-**Color Space** is a VS Code extension that automatically assigns a unique color to each of your workspaces. This helps you distinguish between different project windows at a glance.
+**✨ Color Space** is a VS Code extension that automatically assigns a unique color to each of your workspaces. This helps you distinguish between different project windows at a glance.
 
-### Features
+###  Features
 
-- **Auto Coloring**: Automatically selects the perfect configuration for your workspace to bring you a surprise.
-- **Theme Treasury**: Features a collection of elegant color schemes, including Morandi Dark/Light themes and Chinese Dunhuang colors—there's always one for you!
-- **Status Bar Interaction**: Click the "Palette" icon in the status bar to switch themes in seconds.
-- **Manually Select**: Want to be creative? Manually pick a color or use `Surprise Me` mode to shake things up.
-- **Configurable**: Toggle globally as you wish, or add workspaces you want to "leave alone" to the ignore list—giving you full control.
+- 🎨 **Auto Coloring**: Automatically selects the perfect configuration for your workspace to bring you a surprise.
+- 🏛️ **Theme Treasury**: Features a collection of elegant color schemes, including Morandi Dark/Light themes and Chinese Dunhuang colors—there's always one for you!
+- 🖱️ **Status Bar Interaction**: Click the "Palette" icon in the status bar to switch themes in seconds.
+- 🎲 **Manually Select**: Want to be creative? Manually pick a color or use `Surprise Me` mode to shake things up.
+- ⚙️ **Configurable**: Toggle globally as you wish, or add workspaces you want to "leave alone" to the ignore list—giving you full control.
 
 ### Commands
 
