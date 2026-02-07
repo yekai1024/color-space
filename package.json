@@ -67,27 +67,17 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js",
-    "test:trae": "node ./out/test/runTestTrae.js",
     "generate-icon": "node ./scripts/convert_svg_to_png.js",
     "package": "node ./scripts/package.js",
-    "preview": "node ./scripts/serve-preview.js",
-    "coverage": "nyc --reporter=lcov --reporter=text npm test"
+    "preview": "node ./scripts/serve-preview.js"
   },
   "devDependencies": {
-    "@types/glob": "^7.2.0",
-    "@types/mocha": "^10.0.6",
     "@types/node": "20.x",
     "@types/vscode": "^1.85.0",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
-    "@vscode/test-electron": "^2.3.8",
     "eslint": "^8.56.0",
-    "glob": "^7.2.3",
-    "mocha": "^10.2.0",
-    "nyc": "^15.1.0",
     "sharp": "^0.34.5",
     "typescript": "^5.3.3"
   }

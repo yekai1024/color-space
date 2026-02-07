@@ -19,11 +19,8 @@ Desktop.ini
 
 # Editor
 .idea
-.vscode/settings.json
+.vscode
 *.code-workspace
 
 # Trae
 .trae
-
-# Test artifacts
-src/test/workspace/.vscode

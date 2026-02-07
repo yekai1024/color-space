@@ -4,6 +4,8 @@
 
 **✨ Color Space** is a VS Code extension that automatically assigns a unique color to each of your workspaces. This helps you distinguish between different project windows at a glance.
 
+![color-theme](images/color-theme.png)
+
 ###  Features
 
 - 🎨 **Auto Coloring**: Automatically selects the perfect configuration for your workspace to bring you a surprise.
