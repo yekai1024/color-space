@@ -29,7 +29,15 @@ jobs:
     - name: Get Version
       id: get_version
       shell: bash
-      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      # Remove 'v' prefix to match CHANGELOG version format (e.g. v1.0.1 -> 1.0.1)
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+    - name: Get Changelog Entry
+      id: changelog_reader
+      uses: mindsers/changelog-reader-action@v2
+      with:
+        version: ${{ steps.get_version.outputs.VERSION }}
+        path: ./CHANGELOG.md
 
     - name: Release
       uses: softprops/action-gh-release@v1
@@ -37,6 +45,6 @@ jobs:
         files: "*.vsix"
         draft: false
         prerelease: false
-        generate_release_notes: true
+        body: ${{ steps.changelog_reader.outputs.changes }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

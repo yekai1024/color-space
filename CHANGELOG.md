@@ -2,6 +2,11 @@
 
 All notable changes to the "color-space" extension will be documented in this file.
 
+## [1.0.1] - 2026-02-08
+
+- Chore: Removed unnecessary test files and dependencies
+- CI: Added automated release workflow with GitHub Actions
+
 ## [1.0.0] - 2026-02-05
 
 - Official Release 1.0.0
