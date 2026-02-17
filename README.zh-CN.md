@@ -4,7 +4,13 @@
 
 **✨ Color Space** 是一款兼容 VS Code 的扩展插件，能够为您的每个工作区自动分配独特的颜色。这可以帮助您一目了然地快速区分不同的项目窗口。
 
+<div align="center">
+
 ![color-theme](images/color-theme.png)
+
+![creative-mode](images/creative-mode.jpg)
+
+</div>
 
 ### 功能特性
 - 🎨 **自动调色**: 根据工作区自动选择合适的配置，让你惊喜。
