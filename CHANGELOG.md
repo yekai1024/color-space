@@ -2,6 +2,10 @@
 
 All notable changes to the "color-space" extension will be documented in this file.
 
+## [1.1.0] - 2026-02-17
+
+- **New Creative Mode**: Fully interactive color picker. Create your own theme with ease!
+
 ## [1.0.1] - 2026-02-08
 
 - Updated README

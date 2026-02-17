@@ -2,7 +2,7 @@
   "name": "color-space",
   "displayName": "Color Space",
   "description": "Colorful your VS Code workspace, dress it up automatically!",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "icon": "images/icon.png",
   "publisher": "yekai1024",
   "repository": {
@@ -13,8 +13,15 @@
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Other",
-    "Visualization"
+    "Themes"
+  ],
+  "keywords": [
+    "titlebar",
+    "color",
+    "theme",
+    "project",
+    "workspace",
+    "customization"
   ],
   "activationEvents": [
     "onStartupFinished"
@@ -31,12 +38,16 @@
         "title": "Color Space: Disable"
       },
       {
-        "command": "colorspace.showPreview",
+        "command": "colorspace.colorTheme",
         "title": "Color Space: Color Theme"
       },
       {
         "command": "colorspace.pickColor",
         "title": "Color Space: Pick Color"
+      },
+      {
+        "command": "colorspace.creativeMode",
+        "title": "Color Space: Creative Mode"
       },
       {
         "command": "colorspace.randomize",
@@ -70,7 +81,8 @@
     "lint": "eslint src --ext ts",
     "generate-icon": "node ./scripts/convert_svg_to_png.js",
     "package": "node ./scripts/package.js",
-    "preview": "node ./scripts/serve-preview.js"
+    "preview": "node ./scripts/serve-preview.js",
+    "preview:creative": "node ./scripts/serve-creative.js"
   },
   "devDependencies": {
     "@types/node": "20.x",

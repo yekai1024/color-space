@@ -121,6 +121,10 @@ export class ColorManager {
         await config.update('colorCustomizations', newColors, vscode.ConfigurationTarget.Workspace);
     }
 
+    public isValidHex(hex: string): boolean {
+        return /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i.test(hex);
+    }
+
     private hexToHsl(hex: string): { h: number, s: number, l: number } {
         hex = hex.replace(/^#/, '');
         if (hex.length === 3) {

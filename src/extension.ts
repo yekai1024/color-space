@@ -1,9 +1,11 @@
 import * as vscode from 'vscode';
 import { ColorManager } from './ColorManager';
 import { getPreviewHtml } from './getPreviewHtml';
+import { getCreativeHtml } from './getCreativeHtml';
 
 let myStatusBarItem: vscode.StatusBarItem;
 let currentPanel: vscode.WebviewPanel | undefined = undefined;
+let creativePanel: vscode.WebviewPanel | undefined = undefined;
 
 export function activate(context: vscode.ExtensionContext) {
     const colorManager = new ColorManager(context);
@@ -21,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showInformationMessage('Color Space Disabled');
     });
 
-    const showPreviewCmd = vscode.commands.registerCommand('colorspace.showPreview', () => {
+    const colorThemeCmd = vscode.commands.registerCommand('colorspace.colorTheme', () => {
         const column = vscode.window.activeTextEditor
             ? vscode.window.activeTextEditor.viewColumn
             : undefined;
@@ -119,6 +121,58 @@ export function activate(context: vscode.ExtensionContext) {
         quickPick.show();
     });
 
+    const creativeModeCmd = vscode.commands.registerCommand('colorspace.creativeMode', () => {
+        const column = vscode.window.activeTextEditor
+            ? vscode.window.activeTextEditor.viewColumn
+            : undefined;
+
+        // If we already have a panel, show it.
+        if (creativePanel) {
+            creativePanel.reveal(column);
+            return;
+        }
+
+        // Otherwise, create a new panel.
+        creativePanel = vscode.window.createWebviewPanel(
+            'colorSpaceCreative',
+            'Creative Mode',
+            column || vscode.ViewColumn.One,
+            {
+                enableScripts: true,
+                retainContextWhenHidden: true
+            }
+        );
+
+        // Get current activity bar color or fallback
+        const config = vscode.workspace.getConfiguration('workbench');
+        const colorCustomizations = config.get<any>('colorCustomizations') || {};
+        const initialColor = colorCustomizations['activityBar.background'] || '#007aff';
+
+        creativePanel.webview.html = getCreativeHtml(false, initialColor);
+
+        // Handle messages from the webview
+        creativePanel.webview.onDidReceiveMessage(
+            async message => {
+                switch (message.command) {
+                    case 'apply':
+                        await colorManager.applyColor(message.color);
+                        // vscode.window.showInformationMessage(`Color Space: Applied ${message.color}`);
+                        break;
+                }
+            },
+            undefined,
+            context.subscriptions
+        );
+
+        creativePanel.onDidDispose(
+            () => {
+                creativePanel = undefined;
+            },
+            null,
+            context.subscriptions
+        );
+    });
+
     const randomizeCmd = vscode.commands.registerCommand('colorspace.randomize', async () => {
         const color = colorManager.getRandomColor();
         await colorManager.applyColor(color);
@@ -138,8 +192,9 @@ export function activate(context: vscode.ExtensionContext) {
     // Helper command for status bar click
     const showMenuCmd = vscode.commands.registerCommand('colorspace.showMenu', async () => {
         const items = [
-            { label: '$(preview) Color Theme', command: 'colorspace.showPreview' },
+            { label: '$(preview) Color Theme', command: 'colorspace.colorTheme' },
             { label: '$(color-mode) Pick Color', command: 'colorspace.pickColor' },
+            { label: '$(paintcan) Creative Mode', command: 'colorspace.creativeMode' },
             { label: '$(refresh) Suprise Me', command: 'colorspace.randomize' },
             { label: '$(trash) Clear Color', command: 'colorspace.clear' },
             { label: '$(gear) Configure', command: 'workbench.action.openSettings', arguments: ['colorspace'] }
@@ -155,7 +210,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
     });
 
-    context.subscriptions.push(enableCmd, disableCmd, showPreviewCmd, pickColorCmd, randomizeCmd, clearCmd, showMenuCmd, myStatusBarItem);
+    context.subscriptions.push(enableCmd, disableCmd, colorThemeCmd, pickColorCmd, creativeModeCmd, randomizeCmd, clearCmd, showMenuCmd, myStatusBarItem);
 
     // Initial check
     colorManager.autoColor();

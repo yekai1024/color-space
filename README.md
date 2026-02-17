@@ -9,6 +9,7 @@
 ###  Features
 
 - 🎨 **Auto Coloring**: Automatically selects the perfect configuration for your workspace to bring you a surprise.
+- 🎨 **Creative Mode**: Use the new interactive color picker to create your own unique theme with real-time preview.
 - 🏛️ **Theme Treasury**: Features a collection of elegant color schemes, including Morandi Dark/Light themes and Chinese Dunhuang colors—there's always one for you!
 - 🖱️ **Status Bar Interaction**: Click the "Palette" icon in the status bar to switch themes in seconds.
 - 🎲 **Manually Select**: Want to be creative? Manually pick a color or use `Surprise Me` mode to shake things up.
