@@ -81,6 +81,8 @@
     "lint": "eslint src --ext ts",
     "generate-icon": "node ./scripts/convert_svg_to_png.js",
     "package": "node ./scripts/package.js",
+    "local": "node ./scripts/local.js",
+    "release": "node ./scripts/release.js",
     "preview": "node ./scripts/serve-preview.js",
     "preview:creative": "node ./scripts/serve-creative.js"
   },
