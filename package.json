@@ -2,7 +2,7 @@
   "name": "color-space",
   "displayName": "Color Space",
   "description": "Colorful your VS Code workspace, dress it up automatically!",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "icon": "images/icon.png",
   "publisher": "yekai1024",
   "repository": {

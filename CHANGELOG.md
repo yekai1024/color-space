@@ -2,6 +2,14 @@
 
 All notable changes to the "color-space" extension will be documented in this file.
 
+## [1.1.2] - 2026-02-20
+
+- Enhanced Activity Bar styling: Added inactive foreground opacity and subtle borders for better visibility and theme integration.
+
+## [1.1.1] - 2026-02-18
+
+- Updated extension icon: Increased subject size and saturation for better visibility
+
 ## [1.1.0] - 2026-02-17
 
 - **New Creative Mode**: Fully interactive color picker. Create your own theme with ease!

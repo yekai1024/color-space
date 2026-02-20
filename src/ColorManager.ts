@@ -107,6 +107,10 @@ export class ColorManager {
         const statusL = Math.max(hsl.l - 10, 10);
         const statusColor = this.hslToHex(hsl.h, hsl.s, statusL);
         const statusFg = this.getContrastColor(statusColor);
+        // Calculate inactive foreground with opacity based on contrast color
+        const statusInactiveFg = statusFg === '#ffffff' ? '#ffffff66' : '#00000066';
+        // Add a subtle border to separate activity bar
+        const activityBorder = statusFg === '#ffffff' ? '#ffffff33' : '#00000033';
 
         const newColors = {
             ...colorCustomizations,
@@ -114,6 +118,8 @@ export class ColorManager {
             "titleBar.activeForeground": titleFg,
             "activityBar.background": statusColor,
             "activityBar.foreground": statusFg,
+            "activityBar.inactiveForeground": statusInactiveFg,
+            "activityBar.border": activityBorder,
             "statusBar.background": statusColor,
             "statusBar.foreground": statusFg,
         };
@@ -165,6 +171,8 @@ export class ColorManager {
             "titleBar.activeForeground",
             "activityBar.background",
             "activityBar.foreground",
+            "activityBar.inactiveForeground",
+            "activityBar.border",
             "statusBar.background",
             "statusBar.foreground"
         ];

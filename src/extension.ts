@@ -36,8 +36,8 @@ export function activate(context: vscode.ExtensionContext) {
 
         // Otherwise, create a new panel.
         currentPanel = vscode.window.createWebviewPanel(
-            'colorSpacePreview',
-            'Color Space Preview',
+            'colorTheme',
+            'Color Theme',
             column || vscode.ViewColumn.One,
             {
                 enableScripts: true,
